@@ -1207,12 +1207,12 @@ let
   -- Divide_1_1 = VariableRateLimit_1_1 / Saturation1_1_1;
   -- Divide_1_1 = temporal_divid(VariableRateLimit_1_1, Saturation1_1_1);
 	-- Divide_1_1 = divid_fun(VariableRateLimit_1_1, Saturation1_1_1);
-  Divide_1_1 = if gskts_1_1 >= 100.0 then divid_bounded_num(
+  Divide_1_1 = if gskts_1_1 >= 100.0 then divid_bounded_den(
     VariableRateLimit_1_1,
     if gskts_1_1 < 100.0 then 200.0 else Saturation1_1_1,
     168.78,
     1000.0
-  ) else divid_bounded_num(
+  ) else divid_bounded_den(
     VariableRateLimit_1_1, Saturation1_1_1, 0.0001, 1000.0
   ) ;
 	Kh_1_1 = 0.0800000000 * Sum_1_1;

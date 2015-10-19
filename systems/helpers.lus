@@ -223,7 +223,7 @@ tel
 
 (* Division with some bounds on the denominator.
   Bonuds MUST BE NUMBERS, otherwise the contract is non-linear. *)
-node divid_bounded_num(
+node divid_bounded_den(
   num, den: real ; const l_bound, u_bound: real
 ) returns (res: real) ;
 --@var abs_num = if num < 0.0 then -num else num ;

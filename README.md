@@ -1,5 +1,6 @@
 # TCM experiments
 
+
 ## Systems and graphs
 
 This readme should come with the following folders and files:
@@ -9,6 +10,9 @@ This readme should come with the following folders and files:
   each component, the most readable being usually `dot.pdf`.
 
 * `kind2`: Kind 2 binaries for linux and OSX.
+
+* `logic`: a running example `ml.lus` showcasing mode-based contracts, along
+  with its graph of reachable modes `graph.pdf`.
 
 * `scripts`: scripts used by the `Makefile`.
 
@@ -24,6 +28,19 @@ This readme should come with the following folders and files:
 
   * `cocospec_mono_system.lus`: the TCM system with only the top node specified
     and the non-linear expressions wrapped in contract-equipped nodes.
+
+
+
+## External versus internal CoCoSpec syntax
+
+The system in this repository use the **internal** syntax, as opposed to the
+**external** one. That is, the contracts are directly attached to the node as
+comments instead of being defined externally as `contract` nodes. They follow
+roughly the same syntax otherwise.
+
+Some of the features of the external syntax are not currently implemented in
+Kind 2 but will be shortly.
+
 
 
 ## Kind 2 repository
@@ -59,7 +76,7 @@ make args="-v" verif-osx
 ```
 
 
-## Kind 2 arguments
+## Running Kind 2
 
 To run your own experiments, generate your own graphs, or customize the run
 commands, the relevant Kind 2 options are
@@ -100,6 +117,16 @@ commands, the relevant Kind 2 options are
     identifier `<node_id>`. You can use `./scripts/draw.sh` to generate the
     graphs in PDF format by giving it the path to the `<node_id>` folder. For
     instance `./scripts/draw.sh my_graphs/MODE_LOGIC`.
+
+    For instance:
+    ```
+    > ./kind2/kind2-osx -v --testgen true --testgen_graph_only true --testgen_len 5 logic/ml.lus
+    ...
+    > ./scripts/draw.sh ml
+    ...
+    > ls ml/
+    circo.pdf dot.pdf   neato.pdf sfdp.pdf  twopi.pdf unit    unit.dot
+    ```
 
 
 
