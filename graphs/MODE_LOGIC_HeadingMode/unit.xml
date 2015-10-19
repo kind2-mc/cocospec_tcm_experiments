@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+<data system="MODE_LOGIC_HeadingMode" name="unit tests">
+
+  <testcase path="./MODE_LOGIC_HeadingMode/unit/testcase_1.csv" name="testcase_1" format="csv">
+    at step 0, activates guide_250
+    at step 1, activates guide_250
+    at step 2, activates guide_250
+    at step 3, activates guide_250
+    at step 4, activates guide_250
+    at step 5, activates guide_250
+  </testcase>
+
+  <testcase path="./MODE_LOGIC_HeadingMode/unit/testcase_2.csv" name="testcase_2" format="csv">
+    at step 0, activates guide_250
+    at step 1, activates guide_250
+    at step 2, activates guide_250
+    at step 3, activates guide_250
+    at step 4, activates guide_250
+    at step 5, activates deactivating
+  </testcase>
+
+  <testcase path="./MODE_LOGIC_HeadingMode/unit/testcase_3.csv" name="testcase_3" format="csv">
+    at step 0, activates guide_250
+    at step 1, activates guide_250
+    at step 2, activates guide_250
+    at step 3, activates guide_250
+    at step 4, activates deactivating
+    at step 5, activates deactivating
+  </testcase>
+
+  <testcase path="./MODE_LOGIC_HeadingMode/unit/testcase_4.csv" name="testcase_4" format="csv">
+    at step 0, activates guide_250
+    at step 1, activates guide_250
+    at step 2, activates guide_250
+    at step 3, activates guide_250
+    at step 4, activates deactivating
+    at step 5, activates guide_250
+  </testcase>
+
+  <testcase path="./MODE_LOGIC_HeadingMode/unit/testcase_5.csv" name="testcase_5" format="csv">
+    at step 0, activates guide_250
+    at step 1, activates guide_250
+    at step 2, activates guide_250
+    at step 3, activates deactivating
+    at step 4, activates deactivating
+    at step 5, activates guide_250
+  </testcase>
+
+  <testcase path="./MODE_LOGIC_HeadingMode/unit/testcase_6.csv" name="testcase_6" format="csv">
+    at step 0, activates guide_250
+    at step 1, activates guide_250
+    at step 2, activates guide_250
+    at step 3, activates deactivating
+    at step 4, activates deactivating
+    at step 5, activates deactivating
+  </testcase>
+
+  <testcase path="./MODE_LOGIC_HeadingMode/unit/testcase_7.csv" name="testcase_7" format="csv">
+    at step 0, activates guide_250
+    at step 1, activates guide_250
+    at step 2, activates guide_250
+    at step 3, activates deactivating
+    at step 4, activates guide_250
+    at step 5, activates guide_250
+  </testcase>
+
+  <testcase path="./MODE_LOGIC_HeadingMode/unit/testcase_8.csv" name="testcase_8" format="csv">
+    at step 0, activates guide_250
+    at step 1, activates guide_250
+    at step 2, activates deactivating
+    at step 3, activates deactivating
+    at step 4, activates deactivating
+    at step 5, activates deactivating
+  </testcase>
+
+  <testcase path="./MODE_LOGIC_HeadingMode/unit/testcase_9.csv" name="testcase_9" format="csv">
+    at step 0, activates guide_250
+    at step 1, activates guide_250
+    at step 2, activates deactivating
+    at step 3, activates deactivating
+    at step 4, activates deactivating
+    at step 5, activates guide_250
+  </testcase>
+
+  <testcase path="./MODE_LOGIC_HeadingMode/unit/testcase_10.csv" name="testcase_10" format="csv">
+    at step 0, activates guide_250
+    at step 1, activates guide_250
+    at step 2, activates deactivating
+    at step 3, activates deactivating
+    at step 4, activates guide_250
+    at step 5, activates guide_250
+  </testcase>
+
+  <testcase path="./MODE_LOGIC_HeadingMode/unit/testcase_11.csv" name="testcase_11" format="csv">
+    at step 0, activates inactive
+    at step 1, activates inactive
+    at step 2, activates inactive
+    at step 3, activates inactive
+    at step 4, activates guide_250
+    at step 5, activates guide_250
+  </testcase>
+
+  <testcase path="./MODE_LOGIC_HeadingMode/unit/testcase_12.csv" name="testcase_12" format="csv">
+    at step 0, activates inactive
+    at step 1, activates inactive
+    at step 2, activates inactive
+    at step 3, activates inactive
+    at step 4, activates inactive
+    at step 5, activates inactive
+  </testcase>
+
+  <testcase path="./MODE_LOGIC_HeadingMode/unit/testcase_13.csv" name="testcase_13" format="csv">
+    at step 0, activates inactive
+    at step 1, activates inactive
+    at step 2, activates inactive
+    at step 3, activates inactive
+    at step 4, activates inactive
+    at step 5, activates guide_250
+  </testcase>
+
+  <testcase path="./MODE_LOGIC_HeadingMode/unit/testcase_14.csv" name="testcase_14" format="csv">
+    at step 0, activates inactive
+    at step 1, activates inactive
+    at step 2, activates inactive
+    at step 3, activates guide_250
+    at step 4, activates guide_250
+    at step 5, activates deactivating
+  </testcase>
+
+  <testcase path="./MODE_LOGIC_HeadingMode/unit/testcase_15.csv" name="testcase_15" format="csv">
+    at step 0, activates inactive
+    at step 1, activates inactive
+    at step 2, activates inactive
+    at step 3, activates guide_250
+    at step 4, activates guide_250
+    at step 5, activates guide_250
+  </testcase>
+
+  <testcase path="./MODE_LOGIC_HeadingMode/unit/testcase_16.csv" name="testcase_16" format="csv">
+    at step 0, activates inactive
+    at step 1, activates inactive
+    at step 2, activates guide_250
+    at step 3, activates guide_250
+    at step 4, activates deactivating
+    at step 5, activates deactivating
+  </testcase>
+
+  <testcase path="./MODE_LOGIC_HeadingMode/unit/testcase_17.csv" name="testcase_17" format="csv">
+    at step 0, activates inactive
+    at step 1, activates inactive
+    at step 2, activates guide_250
+    at step 3, activates guide_250
+    at step 4, activates guide_250
+    at step 5, activates deactivating
+  </testcase>
+
+  <testcase path="./MODE_LOGIC_HeadingMode/unit/testcase_18.csv" name="testcase_18" format="csv">
+    at step 0, activates inactive
+    at step 1, activates inactive
+    at step 2, activates guide_250
+    at step 3, activates guide_250
+    at step 4, activates guide_250
+    at step 5, activates guide_250
+  </testcase>
+
+
+</data>

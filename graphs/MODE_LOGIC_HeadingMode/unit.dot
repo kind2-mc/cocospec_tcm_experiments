@@ -1,0 +1,120 @@
+strict digraph mode_graph {
+graph [bgcolor=black margin=0.0] ;
+  node [
+  style=filled
+  fillcolor=black
+  fontcolor="#1e90ff"
+  color="#666666"
+  ] ;
+  edge [color="#1e90ff" fontcolor="#222222"] ;
+  
+
+  "guide_250\n@0" -> "guide_250\n@1" ;
+  "guide_250\n@1" -> "guide_250\n@2" ;
+  "guide_250\n@2" -> "guide_250\n@3" ;
+  "guide_250\n@3" -> "guide_250\n@4" ;
+  "guide_250\n@4" -> "guide_250\n@5" ;
+
+  "guide_250\n@0" -> "guide_250\n@1" ;
+  "guide_250\n@1" -> "guide_250\n@2" ;
+  "guide_250\n@2" -> "guide_250\n@3" ;
+  "guide_250\n@3" -> "guide_250\n@4" ;
+  "guide_250\n@4" -> "deactivating\n@5" ;
+
+  "guide_250\n@0" -> "guide_250\n@1" ;
+  "guide_250\n@1" -> "guide_250\n@2" ;
+  "guide_250\n@2" -> "guide_250\n@3" ;
+  "guide_250\n@3" -> "deactivating\n@4" ;
+  "deactivating\n@4" -> "deactivating\n@5" ;
+
+  "guide_250\n@0" -> "guide_250\n@1" ;
+  "guide_250\n@1" -> "guide_250\n@2" ;
+  "guide_250\n@2" -> "guide_250\n@3" ;
+  "guide_250\n@3" -> "deactivating\n@4" ;
+  "deactivating\n@4" -> "guide_250\n@5" ;
+
+  "guide_250\n@0" -> "guide_250\n@1" ;
+  "guide_250\n@1" -> "guide_250\n@2" ;
+  "guide_250\n@2" -> "deactivating\n@3" ;
+  "deactivating\n@3" -> "deactivating\n@4" ;
+  "deactivating\n@4" -> "guide_250\n@5" ;
+
+  "guide_250\n@0" -> "guide_250\n@1" ;
+  "guide_250\n@1" -> "guide_250\n@2" ;
+  "guide_250\n@2" -> "deactivating\n@3" ;
+  "deactivating\n@3" -> "deactivating\n@4" ;
+  "deactivating\n@4" -> "deactivating\n@5" ;
+
+  "guide_250\n@0" -> "guide_250\n@1" ;
+  "guide_250\n@1" -> "guide_250\n@2" ;
+  "guide_250\n@2" -> "deactivating\n@3" ;
+  "deactivating\n@3" -> "guide_250\n@4" ;
+  "guide_250\n@4" -> "guide_250\n@5" ;
+
+  "guide_250\n@0" -> "guide_250\n@1" ;
+  "guide_250\n@1" -> "deactivating\n@2" ;
+  "deactivating\n@2" -> "deactivating\n@3" ;
+  "deactivating\n@3" -> "deactivating\n@4" ;
+  "deactivating\n@4" -> "deactivating\n@5" ;
+
+  "guide_250\n@0" -> "guide_250\n@1" ;
+  "guide_250\n@1" -> "deactivating\n@2" ;
+  "deactivating\n@2" -> "deactivating\n@3" ;
+  "deactivating\n@3" -> "deactivating\n@4" ;
+  "deactivating\n@4" -> "guide_250\n@5" ;
+
+  "guide_250\n@0" -> "guide_250\n@1" ;
+  "guide_250\n@1" -> "deactivating\n@2" ;
+  "deactivating\n@2" -> "deactivating\n@3" ;
+  "deactivating\n@3" -> "guide_250\n@4" ;
+  "guide_250\n@4" -> "guide_250\n@5" ;
+
+  "inactive\n@0" -> "inactive\n@1" ;
+  "inactive\n@1" -> "inactive\n@2" ;
+  "inactive\n@2" -> "inactive\n@3" ;
+  "inactive\n@3" -> "guide_250\n@4" ;
+  "guide_250\n@4" -> "guide_250\n@5" ;
+
+  "inactive\n@0" -> "inactive\n@1" ;
+  "inactive\n@1" -> "inactive\n@2" ;
+  "inactive\n@2" -> "inactive\n@3" ;
+  "inactive\n@3" -> "inactive\n@4" ;
+  "inactive\n@4" -> "inactive\n@5" ;
+
+  "inactive\n@0" -> "inactive\n@1" ;
+  "inactive\n@1" -> "inactive\n@2" ;
+  "inactive\n@2" -> "inactive\n@3" ;
+  "inactive\n@3" -> "inactive\n@4" ;
+  "inactive\n@4" -> "guide_250\n@5" ;
+
+  "inactive\n@0" -> "inactive\n@1" ;
+  "inactive\n@1" -> "inactive\n@2" ;
+  "inactive\n@2" -> "guide_250\n@3" ;
+  "guide_250\n@3" -> "guide_250\n@4" ;
+  "guide_250\n@4" -> "deactivating\n@5" ;
+
+  "inactive\n@0" -> "inactive\n@1" ;
+  "inactive\n@1" -> "inactive\n@2" ;
+  "inactive\n@2" -> "guide_250\n@3" ;
+  "guide_250\n@3" -> "guide_250\n@4" ;
+  "guide_250\n@4" -> "guide_250\n@5" ;
+
+  "inactive\n@0" -> "inactive\n@1" ;
+  "inactive\n@1" -> "guide_250\n@2" ;
+  "guide_250\n@2" -> "guide_250\n@3" ;
+  "guide_250\n@3" -> "deactivating\n@4" ;
+  "deactivating\n@4" -> "deactivating\n@5" ;
+
+  "inactive\n@0" -> "inactive\n@1" ;
+  "inactive\n@1" -> "guide_250\n@2" ;
+  "guide_250\n@2" -> "guide_250\n@3" ;
+  "guide_250\n@3" -> "guide_250\n@4" ;
+  "guide_250\n@4" -> "deactivating\n@5" ;
+
+  "inactive\n@0" -> "inactive\n@1" ;
+  "inactive\n@1" -> "guide_250\n@2" ;
+  "guide_250\n@2" -> "guide_250\n@3" ;
+  "guide_250\n@3" -> "guide_250\n@4" ;
+  "guide_250\n@4" -> "guide_250\n@5" ;
+
+}

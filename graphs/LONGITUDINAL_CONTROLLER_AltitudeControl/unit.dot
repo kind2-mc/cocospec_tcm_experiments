@@ -1,0 +1,336 @@
+strict digraph mode_graph {
+graph [bgcolor=black margin=0.0] ;
+  node [
+  style=filled
+  fillcolor=black
+  fontcolor="#1e90ff"
+  color="#666666"
+  ] ;
+  edge [color="#1e90ff" fontcolor="#222222"] ;
+  
+
+  "engaged\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "engaged\n@3" ;
+
+  "engaged\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "disengaged_slow\n@3" ;
+
+  "engaged\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "disengaged_fast\n@3" ;
+
+  "engaged\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "disengaged_slow\n@3" ;
+
+  "engaged\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "engaged\n@3" ;
+
+  "engaged\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "disengaged_fast\n@3" ;
+
+  "engaged\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "disengaged_fast\n@3" ;
+
+  "engaged\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "disengaged_slow\n@3" ;
+
+  "engaged\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "engaged\n@3" ;
+
+  "engaged\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "engaged\n@3" ;
+
+  "engaged\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "disengaged_slow\n@3" ;
+
+  "engaged\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "disengaged_fast\n@3" ;
+
+  "engaged\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "disengaged_slow\n@3" ;
+
+  "engaged\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "disengaged_fast\n@3" ;
+
+  "engaged\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "engaged\n@3" ;
+
+  "engaged\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "disengaged_fast\n@3" ;
+
+  "engaged\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "engaged\n@3" ;
+
+  "engaged\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "disengaged_slow\n@3" ;
+
+  "engaged\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "disengaged_fast\n@3" ;
+
+  "engaged\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "engaged\n@3" ;
+
+  "engaged\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "disengaged_slow\n@3" ;
+
+  "engaged\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "disengaged_slow\n@3" ;
+
+  "engaged\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "engaged\n@3" ;
+
+  "engaged\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "disengaged_fast\n@3" ;
+
+  "engaged\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "disengaged_fast\n@3" ;
+
+  "engaged\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "engaged\n@3" ;
+
+  "engaged\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "disengaged_slow\n@3" ;
+
+  "disengaged_fast\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "disengaged_slow\n@3" ;
+
+  "disengaged_fast\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "engaged\n@3" ;
+
+  "disengaged_fast\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "disengaged_fast\n@3" ;
+
+  "disengaged_fast\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "disengaged_slow\n@3" ;
+
+  "disengaged_fast\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "engaged\n@3" ;
+
+  "disengaged_fast\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "disengaged_fast\n@3" ;
+
+  "disengaged_fast\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "disengaged_slow\n@3" ;
+
+  "disengaged_fast\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "engaged\n@3" ;
+
+  "disengaged_fast\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "disengaged_fast\n@3" ;
+
+  "disengaged_fast\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "disengaged_slow\n@3" ;
+
+  "disengaged_fast\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "engaged\n@3" ;
+
+  "disengaged_fast\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "disengaged_fast\n@3" ;
+
+  "disengaged_fast\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "disengaged_slow\n@3" ;
+
+  "disengaged_fast\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "engaged\n@3" ;
+
+  "disengaged_fast\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "disengaged_fast\n@3" ;
+
+  "disengaged_fast\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "disengaged_slow\n@3" ;
+
+  "disengaged_fast\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "engaged\n@3" ;
+
+  "disengaged_fast\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "disengaged_fast\n@3" ;
+
+  "disengaged_fast\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "disengaged_slow\n@3" ;
+
+  "disengaged_fast\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "engaged\n@3" ;
+
+  "disengaged_fast\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "disengaged_fast\n@3" ;
+
+  "disengaged_fast\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "disengaged_slow\n@3" ;
+
+  "disengaged_fast\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "engaged\n@3" ;
+
+  "disengaged_fast\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "disengaged_fast\n@3" ;
+
+  "disengaged_fast\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "disengaged_fast\n@3" ;
+
+  "disengaged_fast\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "engaged\n@3" ;
+
+  "disengaged_fast\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "disengaged_slow\n@3" ;
+
+  "disengaged_slow\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "disengaged_slow\n@3" ;
+
+  "disengaged_slow\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "engaged\n@3" ;
+
+  "disengaged_slow\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "disengaged_fast\n@3" ;
+
+  "disengaged_slow\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "disengaged_fast\n@3" ;
+
+  "disengaged_slow\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "engaged\n@3" ;
+
+  "disengaged_slow\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "disengaged_slow\n@3" ;
+
+  "disengaged_slow\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "disengaged_slow\n@3" ;
+
+  "disengaged_slow\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "engaged\n@3" ;
+
+  "disengaged_slow\n@0" -> "engaged\n@1" ;
+  "engaged\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "disengaged_fast\n@3" ;
+
+  "disengaged_slow\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "disengaged_fast\n@3" ;
+
+  "disengaged_slow\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "engaged\n@3" ;
+
+  "disengaged_slow\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "disengaged_slow\n@3" ;
+
+  "disengaged_slow\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "disengaged_fast\n@3" ;
+
+  "disengaged_slow\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "engaged\n@3" ;
+
+  "disengaged_slow\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "disengaged_slow\n@3" ;
+
+  "disengaged_slow\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "disengaged_slow\n@3" ;
+
+  "disengaged_slow\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "engaged\n@3" ;
+
+  "disengaged_slow\n@0" -> "disengaged_slow\n@1" ;
+  "disengaged_slow\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "disengaged_fast\n@3" ;
+
+  "disengaged_slow\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "disengaged_fast\n@3" ;
+
+  "disengaged_slow\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "engaged\n@3" ;
+
+  "disengaged_slow\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "disengaged_slow\n@2" ;
+  "disengaged_slow\n@2" -> "disengaged_slow\n@3" ;
+
+  "disengaged_slow\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "disengaged_fast\n@3" ;
+
+  "disengaged_slow\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "engaged\n@3" ;
+
+  "disengaged_slow\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "disengaged_fast\n@2" ;
+  "disengaged_fast\n@2" -> "disengaged_slow\n@3" ;
+
+  "disengaged_slow\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "disengaged_slow\n@3" ;
+
+  "disengaged_slow\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "engaged\n@3" ;
+
+  "disengaged_slow\n@0" -> "disengaged_fast\n@1" ;
+  "disengaged_fast\n@1" -> "engaged\n@2" ;
+  "engaged\n@2" -> "disengaged_fast\n@3" ;
+
+}
