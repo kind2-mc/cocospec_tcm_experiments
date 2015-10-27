@@ -31,12 +31,12 @@ This readme should come with the following folders and files:
 
 
 
-## External versus internal CoCoSpec syntax
+## External versus internal contract syntax
 
 The system in this repository use the **internal** syntax, as opposed to the
-**external** one. That is, the contracts are directly attached to the node as
-comments instead of being defined externally as `contract` nodes. They follow
-roughly the same syntax otherwise.
+CoCoSpec, **external** one. That is, the contracts are directly attached to
+the node as comments instead of being defined externally as `contract` nodes.
+They follow roughly the same syntax otherwise.
 
 Some of the features of the external syntax are not currently implemented in
 Kind 2 but will be shortly.
