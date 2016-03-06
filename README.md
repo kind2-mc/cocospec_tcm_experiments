@@ -1,3 +1,5 @@
+**N.B.** the content of this repository only runs on Linux and OSX.
+
 # TCM experiments
 
 
@@ -13,6 +15,7 @@ This readme should come with the following folders and files:
 
 * `logic`: a running example `ml.lus` showcasing mode-based contracts, along
   with its graph of reachable modes `graph.pdf`.
+  It is a simplified version of the mode logic component of the TCM.
 
 * `scripts`: scripts used by the `Makefile`.
 
@@ -20,6 +23,8 @@ This readme should come with the following folders and files:
 
   * `helpers.lus`: nodes used for the specification of the system, and the
     abstraction of its non-linear expressions.
+
+  * `spec.lus`: contracts specifying the components of the TCM.
 
   * `original_system.lus`: the TCM system as we got them from the Simulink to
     Lustre translator.
@@ -31,36 +36,22 @@ This readme should come with the following folders and files:
 
 
 
-## External versus internal contract syntax
-
-The system in this repository use the **internal** syntax, as opposed to the
-CoCoSpec, **external** one. That is, the contracts are directly attached to
-the node as comments instead of being defined externally as `contract` nodes.
-They follow roughly the same syntax otherwise.
-
-Some of the features of the external syntax are not currently implemented in
-Kind 2 but will be shortly.
-
-
-
 ## Kind 2 repository
 
-The implementation reported in the paper is in the `contracts-and-arrays`
-branch of the Kind 2 official repository:
+The implementation reported in the paper is in the `develop` branch of the Kind
+2 official repository:
 
-[https://github.com/kind2-mc/kind2/tree/contracts-and-arrays][kind2]
+[https://github.com/kind2-mc/kind2/][kind2]
 
 
 ## Makefile commands
-
-**N.B.** the make commands will only work on Linux or OSX.
 
 * `graphs-osx`/`graphs-linux`: generates the graph of reachable modes for the
   systems in `cocospec_comp_system.lus`. Requires Kind 2 and standard graphviz
   commands.
 
 * `verif-osx`/`verif-linux`: runs Kind 2 on `cocospec_comp_system.lus` in
-  modular/compositional mode. Expected runtime is less than 500 seconds on a
+  modular/compositional mode. Expected runtime is less than 100 seconds on a
   *recent machine*.
 
 * `monolithic-osx`/`monolithic-linux`: runs Kind 2 on
@@ -71,22 +62,25 @@ You can pass custom options to Kind 2:
 
 ```
 make args="<options>" <cmd>
-# For instance, run "verif-osx" with verbose.
+# For instance, run "verif-osx" with verbose output.
 make args="-v" verif-osx
 ```
 
 
-## Running Kind 2
+## Kind 2 options
 
 To run your own experiments, generate your own graphs, or customize the run
 commands, the relevant Kind 2 options are
 
-* `--lustre_main <node_id>` to analyze node `<node_id>`. Otherwise, the last
+* `--output_dir <dir>` specifies where Kind 2 should write the files it
+  produces. Default is `./kind2/`.
+
+* `--lus_main <node_id>` to analyze node `<node_id>`. Otherwise, the last
   node is analyzed.
 
 * `-v` verbose output.
 
-* `--smtsolver [Z3|CVC4]` which solver to use.
+* `--smt_solver [Z3|CVC4]` which solver to use.
 
 * `--z3_bin <z3_cmd>`, `--cvc4_bin <cvc4_cmd>` the command to call the actual
   solver.
@@ -103,6 +97,11 @@ commands, the relevant Kind 2 options are
     use of a feature in the SMT solver that is known to perform poorly on
     non-linear problems.
 
+  * `--check_implem false` deactivates the verification of nodes. Contracts
+    still be checked for mode exhaustivity. This option is useful if you just
+    want to generate the graph of reachable modes without (re-)verifying the
+    node itself.
+
 * For graph generation:
 
   * `--testgen true` to run test generation, the feature that generates the
@@ -114,21 +113,26 @@ commands, the relevant Kind 2 options are
   * `--testgen_len <int>` to generate the graph up to depth `<int>`.
 
   * A `unit.dot` file will be generated in a folder named after the node's
-    identifier `<node_id>`. You can use `./scripts/draw.sh` to generate the
-    graphs in PDF format by giving it the path to the `<node_id>` folder. For
-    instance `./scripts/draw.sh my_graphs/MODE_LOGIC`.
+    identifier `<node_id>/testgen/tests`. You can use `./scripts/draw.sh` to
+    generate the graphs in PDF format by giving it the path to the `<node_id>`
+    folder. For instance
+    `./scripts/draw.sh my_graphs/MODE_LOGIC/testgen/tests`.
 
-    For instance:
+    Complete example:
     ```
-    > ./kind2/kind2-osx -v --testgen true --testgen_graph_only true --testgen_len 5 logic/ml.lus
+    > ./kind2/kind2-osx -v --testgen true --testgen_graph_only true --testgen_len 5 --output_dir logic_analysis logic/logic.lus
     ...
-    > ./scripts/draw.sh ml
+    > ./scripts/draw.sh logic_analysis/ml/testgen/tests
     ...
-    > ls ml/
+    > ls logic_analysis/ml/testgen/tests
     circo.pdf dot.pdf   neato.pdf sfdp.pdf  twopi.pdf unit    unit.dot
     ```
 
+    **N.B.** script `scripts/draw.sh` relies on `dot` and its variants 
+    (`neato`, `twopi`, `sdfp` and `circo`). It will not work if they are not
+    installed on your machine.
 
 
-[kind2]: https://github.com/kind2-mc/kind2/tree/contracts-and-arrays (Kind 2 contracts-and-array branch)
+
+[kind2]: https://github.com/kind2-mc/kind2/ (Kind 2 branch)
 
