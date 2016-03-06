@@ -9,49 +9,60 @@ let
   out = not off and (on -> on or pre out);
 tel
 
+contract ml_spec (
+  altRequest, fpaRequest, deactivate : bool ; altitude, targetAlt : real
+) returns ( altEngaged, fpaEngaged: bool ) ;
+let
+  var altRequested = switch(altRequest, deactivate) ;
+  var fpaRequested = switch(fpaRequest, deactivate) ;
+  var smallGap = abs(altitude - targetAlt) < 200.0 ;
+
+  assume altitude >= 0.0 ;
+  assume targetAlt >= 0.0 ;
+  guarantee not altEngaged or not fpaEngaged ;
+  mode guide210Alt (
+    require smallGap ;
+    require altRequested; 
+    ensure altEngaged;
+  ) ;
+  mode guide210FPA (
+    require smallGap ;
+    require fpaRequested ;
+    require not altRequested; 
+    ensure fpaEngaged;
+  ) ;
+  mode guide180 (
+    require not smallGap ;
+    require fpaRequested; 
+    ensure fpaEngaged;
+  ) ;
+  mode guide170 (
+    require not smallGap ;
+    require altRequested ;
+    require not fpaRequested;
+    ensure altEngaged;
+  ) ;
+  mode noAlt (
+    require not altRequested;
+    ensure not altEngaged;
+  ) ;
+  mode noFPA (
+    require not fpaRequested;
+    ensure not fpaEngaged;
+  ) ;
+
+tel
+
 node ml (
   altRequest, fpaRequest, deactivate : bool ; altitude, targetAlt : real
 ) returns ( altEngaged, fpaEngaged: bool ) ;
 (*@contract
 
-  var altRequested = switch(altRequest, deactivate) ;
-  var fpaRequested = switch(fpaRequest, deactivate) ;
-  var smallGap = abs(altitude - targetAlt) < 200.0 ;
-
-  @require altitude >= 0.0 ;
-  @require targetAlt >= 0.0 ;
-  @ensure  not altEngaged or not fpaEngaged ;
-  @mode guide210Alt (
-    @require smallGap ;
-    @require altRequested; 
-    @ensure altEngaged;
+  import ml_spec (
+    altRequest, fpaRequest, deactivate, altitude, targetAlt
+  ) returns (
+    altEngaged, fpaEngaged
   ) ;
-  @mode guide210FPA (
-    @require smallGap ;
-    @require fpaRequested ;
-    @require not altRequested; 
-    @ensure fpaEngaged;
-  ) ;
-  @mode guide180 (
-    @require not smallGap ;
-    @require fpaRequested; 
-    @ensure fpaEngaged;
-  ) ;
-  @mode guide170 (
-    @require not smallGap ;
-    @require altRequested ;
-    @require not fpaRequested;
-    @ensure altEngaged;
-  ) ;
-  @mode noAlt (
-    @require not altRequested;
-    @ensure not altEngaged;
-  ) ;
-  @mode noFPA (
-    @require not fpaRequested;
-    @ensure not fpaEngaged;
-  ) ;
-
 *)
 var altRequested, fpaRequested, smallGap: bool ;
 let
