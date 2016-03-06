@@ -115,20 +115,20 @@ tel
 
 
 
-node integrator_reset(
-  in, in0 : real ; reset : bool
-) returns (
-  out : real
-) ;
-var
-  resetting: bool ;
-  pre_reset, v, v_reset: real ;
-let
-  resetting = reset or (false -> pre reset) ;
-  pre_reset = if resetting then in0 else (in0 -> pre v) ;
-  v = in + pre_reset ;
-  out = 0.0 -> pre v ;
-tel
+-- node integrator_reset(
+--   in, in0 : real ; reset : bool
+-- ) returns (
+--   out : real
+-- ) ;
+-- var
+--   resetting: bool ;
+--   pre_reset, v, v_reset: real ;
+-- let
+--   resetting = reset or (false -> pre reset) ;
+--   pre_reset = if resetting then in0 else (in0 -> pre v) ;
+--   v = in + pre_reset ;
+--   out = 0.0 -> pre v ;
+-- tel
 
 
 node Right (heading, cmd: real) returns (out: bool) ;
@@ -166,231 +166,229 @@ let out = abs(in - (in -> pre in)) <= inc ; tel
 -- |===| Abstractions of non-linear streams.
 
 node times(x, y: real) returns (z: real) ;
---@var abs_x = if x < 0.0 then -x else x ;
---@var abs_y = if y < 0.0 then -y else y ;
---@var abs_z = if z < 0.0 then -z else z ;
+(*@contract
+var abs_x = if x < 0.0 then -x else x ;
+var abs_y = if y < 0.0 then -y else y ;
+var abs_z = if z < 0.0 then -z else z ;
 -- Neutral.
---@ensure (z = y) = ((x = 1.0) or (y = 0.0)) ;
---@ensure (z = x) = ((y = 1.0) or (x = 0.0)) ;
+guarantee (z = y) = ((x = 1.0) or (y = 0.0)) ;
+guarantee (z = x) = ((y = 1.0) or (x = 0.0)) ;
 -- Absorbing.
---@ensure (z = 0.0) = ( (x = 0.0) or (y = 0.0) ) ;
+guarantee (z = 0.0) = ( (x = 0.0) or (y = 0.0) ) ;
 -- Sign.
---@ensure (z > 0.0) = (
+guarantee (z > 0.0) = (
   ( (x > 0.0) and (y > 0.0) ) or
   ( (x < 0.0) and (y < 0.0) )
 ) ;
---@ensure (z < 0.0) = (
+guarantee (z < 0.0) = (
   ( (x > 0.0) and (y < 0.0) ) or
   ( (x < 0.0) and (y > 0.0) )
 ) ;
 -- Loose proportionality.
---@ensure (abs_z >= abs_y) = ((abs_x >= 1.0) or (y = 0.0)) ;
---@ensure (abs_z >= abs_x) = ((abs_y >= 1.0) or (x = 0.0)) ;
---@ensure (abs_z <= abs_y) = ((abs_x <= 1.0) or (y = 0.0)) ;
---@ensure (abs_z <= abs_x) = ((abs_y <= 1.0) or (x = 0.0)) ;
+guarantee (abs_z >= abs_y) = ((abs_x >= 1.0) or (y = 0.0)) ;
+guarantee (abs_z >= abs_x) = ((abs_y >= 1.0) or (x = 0.0)) ;
+guarantee (abs_z <= abs_y) = ((abs_x <= 1.0) or (y = 0.0)) ;
+guarantee (abs_z <= abs_x) = ((abs_y <= 1.0) or (x = 0.0)) ;
+*)
 let
   z = x * y ;
 tel
 
 node divid(num, den: real) returns (res: real) ;
---@var abs_num = if num < 0.0 then -num else num ;
---@var abs_den = if den < 0.0 then -den else den ;
---@var abs_res = if res < 0.0 then -res else res ;
---@require not (den = 0.0) ;
+(*@contract
+var abs_num = if num < 0.0 then -num else num ;
+var abs_den = if den < 0.0 then -den else den ;
+var abs_res = if res < 0.0 then -res else res ;
+assume not (den = 0.0) ;
 -- Neutral.
---@ensure (res = num) = ((den = 1.0) or (num = 0.0)) ;
---@ensure (res = - num) = ((den = - 1.0) or (num = 0.0)) ;
+guarantee (res = num) = ((den = 1.0) or (num = 0.0)) ;
+guarantee (res = - num) = ((den = - 1.0) or (num = 0.0)) ;
 -- Absorbing.
---@ensure (num = 0.0) = (res = 0.0) ;
+guarantee (num = 0.0) = (res = 0.0) ;
 -- Sign.
---@ensure (res > 0.0) = (
+guarantee (res > 0.0) = (
   ( (num > 0.0) and (den > 0.0) ) or
   ( (num < 0.0) and (den < 0.0) )
 ) ;
---@ensure (res < 0.0) = (
+guarantee (res < 0.0) = (
   ( (num > 0.0) and (den < 0.0) ) or
   ( (num < 0.0) and (den > 0.0) )
 ) ;
 -- Loose proportionality.
---@ensure (abs_res >= abs_num) = ((abs_den <= 1.0) or (num = 0.0)) ;
---@ensure (abs_res <= abs_num) = ((abs_den >= 1.0) or (num = 0.0)) ;
+guarantee (abs_res >= abs_num) = ((abs_den <= 1.0) or (num = 0.0)) ;
+guarantee (abs_res <= abs_num) = ((abs_den >= 1.0) or (num = 0.0)) ;
 -- Annulation.
---@ensure (res = 1.0) = (num = den) ;
---@ensure (res = - 1.0) = (num = - den) ;
+guarantee (res = 1.0) = (num = den) ;
+guarantee (res = - 1.0) = (num = - den) ;
+*)
 let
   res = num / den ;
 tel
 
 (* Division with some bounds on the denominator.
   Bonuds MUST BE NUMBERS, otherwise the contract is non-linear. *)
-node divid_bounded_den(
+node divid_bounded_num(
   num, den: real ; const l_bound, u_bound: real
 ) returns (res: real) ;
---@var abs_num = if num < 0.0 then -num else num ;
---@var abs_den = if den < 0.0 then -den else den ;
---@var abs_res = if res < 0.0 then -res else res ;
---@require not (den = 0.0) ;
+(*@contract
+  var abs_num = if num < 0.0 then -num else num ;
+  var abs_den = if den < 0.0 then -den else den ;
+  var abs_res = if res < 0.0 then -res else res ;
+  assume not (den = 0.0) ;
 (* Denominator respects its bounds. *)
---@require l_bound <> 0.0 ;
---@require u_bound <> 0.0 ;
---@require l_bound <= u_bound ;
---@require l_bound <= den ;
---@require            den <= u_bound ;
+  assume l_bound <> 0.0 ;
+  assume u_bound <> 0.0 ;
+  assume l_bound <= u_bound ;
+  assume l_bound <= den ;
+  assume            den <= u_bound ;
 -- Neutral.
---@ensure (res = num) = ((den = 1.0) or (num = 0.0)) ;
---@ensure (res = - num) = ((den = - 1.0) or (num = 0.0)) ;
+  guarantee (res = num) = ((den = 1.0) or (num = 0.0)) ;
+  guarantee (res = - num) = ((den = - 1.0) or (num = 0.0)) ;
 -- Absorbing.
---@ensure (num = 0.0) = (res = 0.0) ;
+  guarantee (num = 0.0) = (res = 0.0) ;
 -- Sign.
---@ensure (res > 0.0) = (
+  guarantee (res > 0.0) = (
   ( (num > 0.0) and (den > 0.0) ) or
   ( (num < 0.0) and (den < 0.0) )
 ) ;
---@ensure (res < 0.0) = (
+  guarantee (res < 0.0) = (
   ( (num > 0.0) and (den < 0.0) ) or
   ( (num < 0.0) and (den > 0.0) )
 ) ;
 -- Loose proportionality.
---@ensure (abs_res >= abs_num) = ((abs_den <= 1.0) or (num = 0.0)) ;
---@ensure (abs_res <= abs_num) = ((abs_den >= 1.0) or (num = 0.0)) ;
+  guarantee (abs_res >= abs_num) = ((abs_den <= 1.0) or (num = 0.0)) ;
+  guarantee (abs_res <= abs_num) = ((abs_den >= 1.0) or (num = 0.0)) ;
 -- Annulation.
---@ensure (res = 1.0) = (num = den) ;
---@ensure (res = - 1.0) = (num = - den) ;
+  guarantee (res = 1.0) = (num = den) ;
+  guarantee (res = - 1.0) = (num = - den) ;
 
 -- Bounded result.
---@mode num_pos_l_bound_pos ;
---@require num >= 0.0 ;
---@require l_bound > 0.0 ;
---@ensure num / u_bound <= res ;
---@ensure                  res <= num / l_bound ;
---@mode num_pos_u_bound_neg ;
---@require num >= 0.0 ;
---@require u_bound < 0.0 ;
---@ensure num / u_bound <= res ;
---@ensure                  res <= num / l_bound ;
---@mode num_neg_l_bound_pos ;
---@require num < 0.0 ;
---@require l_bound > 0.0 ;
---@ensure num / l_bound <= res ;
---@ensure                  res <= num / u_bound ;
---@mode num_neg_u_bound_neg ;
---@require num < 0.0 ;
---@require u_bound < 0.0 ;
---@ensure num / l_bound <= res ;
---@ensure                  res <= num / u_bound ;
---@mode num_pos_l_bound_neg_u_bound_pos ;
---@require num >= 0.0 ;
---@require u_bound > 0.0 ;
---@require l_bound < 0.0 ;
---@ensure res <= num / l_bound or num / u_bound <= res ;
---@mode num_neg_l_bound_neg_u_bound_pos ;
---@require num < 0.0 ;
---@require u_bound > 0.0 ;
---@require l_bound < 0.0 ;
---@ensure res <= num / u_bound or num / l_bound <= res ;
+  mode num_pos_l_bound_pos (
+    require num >= 0.0 ;
+    require l_bound > 0.0 ;
+    ensure num / u_bound <= res ;
+    ensure                  res <= num / l_bound ;
+  ) ;
+  mode num_pos_u_bound_neg (
+    require num >= 0.0 ;
+    require u_bound < 0.0 ;
+    ensure num / u_bound <= res ;
+    ensure                  res <= num / l_bound ;
+  ) ;
+  mode num_neg_l_bound_pos (
+    require num < 0.0 ;
+    require l_bound > 0.0 ;
+    ensure num / l_bound <= res ;
+    ensure                  res <= num / u_bound ;
+  ) ;
+  mode num_neg_u_bound_neg (
+    require num < 0.0 ;
+    require u_bound < 0.0 ;
+    ensure num / l_bound <= res ;
+    ensure                  res <= num / u_bound ;
+  ) ;
+  mode num_pos_l_bound_neg_u_bound_pos (
+    require num >= 0.0 ;
+    require u_bound > 0.0 ;
+    require l_bound < 0.0 ;
+    ensure res <= num / l_bound or num / u_bound <= res ;
+  ) ;
+  mode num_neg_l_bound_neg_u_bound_pos (
+    require num < 0.0 ;
+    require u_bound > 0.0 ;
+    require l_bound < 0.0 ;
+    ensure res <= num / u_bound or num / l_bound <= res ;
+  ) ;
+*)
 let
   res = num / den ;
 tel
 
-function divid_fun(num, den: real) returns (res: real) ;
---@var abs_num = if num < 0.0 then -num else num ;
---@var abs_den = if den < 0.0 then -den else den ;
---@var abs_res = if res < 0.0 then -res else res ;
---@require not (den = 0.0) ;
--- Neutral.
---@ensure (res = num) = ((den = 1.0) or (num = 0.0)) ;
---@ensure (res = - num) = ((den = - 1.0) or (num = 0.0)) ;
--- Absorbing.
---@ensure (num = 0.0) = (res = 0.0) ;
--- Sign.
---@ensure (res > 0.0) = (
-  ( (num > 0.0) and (den > 0.0) ) or
-  ( (num < 0.0) and (den < 0.0) )
-) ;
---@ensure (res < 0.0) = (
-  ( (num > 0.0) and (den < 0.0) ) or
-  ( (num < 0.0) and (den > 0.0) )
-) ;
--- Loose proportionality.
---@ensure (abs_res >= abs_num) = ((abs_den <= 1.0) or (num = 0.0)) ;
---@ensure (abs_res <= abs_num) = ((abs_den >= 1.0) or (num = 0.0)) ;
--- Annulation.
---@ensure (res = 1.0) = (num = den) ;
---@ensure (res = - 1.0) = (num = - den) ;
-
 node temporal_divid(num, den: real) returns (res: real) ;
---@var abs_num = if num < 0.0 then -num else num ;
---@var abs_den = if den < 0.0 then -den else den ;
---@var abs_res = if res < 0.0 then -res else res ;
---@require not (den = 0.0) ;
+(*@contract
+  var abs_num = if num < 0.0 then -num else num ;
+  var abs_den = if den < 0.0 then -den else den ;
+  var abs_res = if res < 0.0 then -res else res ;
+  assume not (den = 0.0) ;
 -- Neutral.
---@ensure (res = num) = ((den = 1.0) or (num = 0.0)) ;
---@ensure (res = - num) = ((den = - 1.0) or (num = 0.0)) ;
+  guarantee (res = num) = ((den = 1.0) or (num = 0.0)) ;
+  guarantee (res = - num) = ((den = - 1.0) or (num = 0.0)) ;
 -- Absorbing.
---@ensure (num = 0.0) = (res = 0.0) ;
+  guarantee (num = 0.0) = (res = 0.0) ;
 -- Sign.
---@ensure (res > 0.0) = (
+  guarantee (res > 0.0) = (
   ( (num > 0.0) and (den > 0.0) ) or
   ( (num < 0.0) and (den < 0.0) )
 ) ;
---@ensure (res < 0.0) = (
+  guarantee (res < 0.0) = (
   ( (num > 0.0) and (den < 0.0) ) or
   ( (num < 0.0) and (den > 0.0) )
 ) ;
 -- Loose proportionality.
---@ensure (abs_res >= abs_num) = ((abs_den <= 1.0) or (num = 0.0)) ;
---@ensure (abs_res <= abs_num) = ((abs_den >= 1.0) or (num = 0.0)) ;
+  guarantee (abs_res >= abs_num) = ((abs_den <= 1.0) or (num = 0.0)) ;
+  guarantee (abs_res <= abs_num) = ((abs_den >= 1.0) or (num = 0.0)) ;
 -- Annulation.
---@ensure (res = 1.0) = (num = den) ;
---@ensure (res = - 1.0) = (num = - den) ;
+  guarantee (res = 1.0) = (num = den) ;
+  guarantee (res = - 1.0) = (num = - den) ;
 
 -- Evolution.
---@mode init ;
---@require true -> false ;
---@ensure true -> false ;
+  mode init (
+    require true -> false ;
+    ensure true -> false ;
+  ) ;
 
---@mode both_inc ;
---@require false -> (num > pre num) ;
---@require false -> (den > pre den) ;
+  mode both_inc (
+    require false -> (num > pre num) ;
+    require false -> (den > pre den) ;
+  ) ;
 
---@mode both_dec ;
---@require false -> (num < pre num) ;
---@require false -> (den < pre den) ;
+  mode both_dec (
+    require false -> (num < pre num) ;
+    require false -> (den < pre den) ;
+  ) ;
 
---@mode inc_by_num_inc ;
---@require false -> (num > pre num) ;
---@require false -> (den = pre den) ;
---@ensure  false -> (res > pre res) ;
+  mode inc_by_num_inc (
+    require false -> (num > pre num) ;
+    require false -> (den = pre den) ;
+    ensure  false -> (res > pre res) ;
+  ) ;
 
---@mode inc_by_den_dec ;
---@require false -> (num = pre num) ;
---@require false -> (den < pre den) ;
---@ensure  false -> (res > pre res or res = 0.0) ;
+  mode inc_by_den_dec (
+    require false -> (num = pre num) ;
+    require false -> (den < pre den) ;
+    ensure  false -> (res > pre res or res = 0.0) ;
+  ) ;
 
---@mode inc_by_num_inc_den_dec ;
---@require false -> (num > pre num) ;
---@require false -> (den < pre den) ;
---@ensure  false -> (res > pre res) ;
+  mode inc_by_num_inc_den_dec (
+    require false -> (num > pre num) ;
+    require false -> (den < pre den) ;
+    ensure  false -> (res > pre res) ;
+  ) ;
 
---@mode dec_by_num_dec ;
---@require false -> (num < pre num) ;
---@require false -> (den = pre den) ;
---@ensure  false -> (res < pre res) ;
+  mode dec_by_num_dec (
+    require false -> (num < pre num) ;
+    require false -> (den = pre den) ;
+    ensure  false -> (res < pre res) ;
+  ) ;
 
---@mode dec_by_den_inc ;
---@require false -> (num = pre num) ;
---@require false -> (den > pre den) ;
---@ensure  false -> (res < pre res or res = 0.0) ;
+  mode dec_by_den_inc (
+    require false -> (num = pre num) ;
+    require false -> (den > pre den) ;
+    ensure  false -> (res < pre res or res = 0.0) ;
+  ) ;
 
---@mode dec_by_num_dec_den_inc ;
---@require false -> (num < pre num) ;
---@require false -> (den > pre den) ;
---@ensure  false -> (res < pre res) ;
+  mode dec_by_num_dec_den_inc (
+    require false -> (num < pre num) ;
+    require false -> (den > pre den) ;
+    ensure  false -> (res < pre res) ;
+  ) ;
 
---@mode steady ;
---@require false -> (num = pre num) ;
---@require false -> (den = pre den) ;
---@ensure  false -> (res = pre res) ;
+  mode steady (
+    require false -> (num = pre num) ;
+    require false -> (den = pre den) ;
+    ensure  false -> (res = pre res) ;
+  ) ;
+*)
 let
   res = num / den ;
 tel
