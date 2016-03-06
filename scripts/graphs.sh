@@ -14,10 +14,10 @@ nodes=(
   "2>Mode_plus_Longitudinal"
 )
 
-cmd="$kind2 -v --testgen true --testgen_graph_only true --testgen_len"
-cmd_main="--lustre_main"
+cmd="$kind2 --check_implem off --testgen on --testgen_graph_only on --testgen_len"
+cmd_main="--lus_main"
 
-draw_cmd="../scripts/draw.sh"
+draw_cmd="draw.sh"
 
 target="reachable_modes"
 
