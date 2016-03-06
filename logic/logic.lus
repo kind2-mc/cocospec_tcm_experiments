@@ -3,8 +3,7 @@ let
   out = if in <= 0.0 then -in else in ;
 tel
 
-node switch( on, off: bool ) 
-returns ( out: bool ) ;
+node switch( on, off: bool ) returns ( out: bool ) ;
 let
   out = not off and (on -> on or pre out);
 tel
@@ -17,38 +16,31 @@ let
   var fpaRequested = switch(fpaRequest, deactivate) ;
   var smallGap = abs(altitude - targetAlt) < 200.0 ;
 
-  assume altitude >= 0.0 ;
-  assume targetAlt >= 0.0 ;
+  assume altitude >= 0.0 ; assume targetAlt >= 0.0 ;
   guarantee not altEngaged or not fpaEngaged ;
   mode guide210Alt (
-    require smallGap ;
-    require altRequested; 
-    ensure altEngaged;
+    require smallGap ; require altRequested ;
+    ensure altEngaged ;
   ) ;
   mode guide210FPA (
-    require smallGap ;
-    require fpaRequested ;
-    require not altRequested; 
-    ensure fpaEngaged;
+    require smallGap ; require fpaRequested ; require not altRequested ;
+    ensure fpaEngaged ;
   ) ;
   mode guide180 (
-    require not smallGap ;
-    require fpaRequested; 
-    ensure fpaEngaged;
+    require not smallGap ; require fpaRequested ;
+    ensure fpaEngaged ;
   ) ;
   mode guide170 (
-    require not smallGap ;
-    require altRequested ;
-    require not fpaRequested;
-    ensure altEngaged;
+    require not smallGap ; require altRequested ; require not fpaRequested ;
+    ensure altEngaged ;
   ) ;
   mode noAlt (
-    require not altRequested;
-    ensure not altEngaged;
+    require not altRequested ;
+    ensure not altEngaged ;
   ) ;
   mode noFPA (
-    require not fpaRequested;
-    ensure not fpaEngaged;
+    require not fpaRequested ;
+    ensure not fpaEngaged ;
   ) ;
 
 tel
