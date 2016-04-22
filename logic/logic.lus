@@ -12,9 +12,9 @@ contract ml_spec (
   altRequest, fpaRequest, deactivate : bool ; altitude, targetAlt : real
 ) returns ( altEngaged, fpaEngaged: bool ) ;
 let
-  var altRequested = switch(altRequest, deactivate) ;
-  var fpaRequested = switch(fpaRequest, deactivate) ;
-  var smallGap = abs(altitude - targetAlt) < 200.0 ;
+  var altRequested: bool = switch(altRequest, deactivate) ;
+  var fpaRequested: bool = switch(fpaRequest, deactivate) ;
+  var smallGap: bool = abs(altitude - targetAlt) < 200.0 ;
 
   assume altitude >= 0.0 ; assume targetAlt >= 0.0 ;
   guarantee not altEngaged or not fpaEngaged ;

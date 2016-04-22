@@ -160,7 +160,7 @@ returns (HeadEng_1_1 : bool ;
 	ATEng_4_1 : bool;
 	CASCmd_5_1 : real) ;
 (*@contract
-	var disengage = ailStick_1_1 <> 0.0 or elevStick_1_1 <> 0.0 ;
+	var disengage: bool = ailStick_1_1 <> 0.0 or elevStick_1_1 <> 0.0 ;
   import logic (
     HeadMode_1_1 <> 0.0,
     AltMode_1_1  <> 0.0,

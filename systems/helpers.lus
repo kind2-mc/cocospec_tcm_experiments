@@ -167,9 +167,9 @@ let out = abs(in - (in -> pre in)) <= inc ; tel
 
 node times(x, y: real) returns (z: real) ;
 (*@contract
-var abs_x = if x < 0.0 then -x else x ;
-var abs_y = if y < 0.0 then -y else y ;
-var abs_z = if z < 0.0 then -z else z ;
+var abs_x: real = if x < 0.0 then -x else x ;
+var abs_y: real = if y < 0.0 then -y else y ;
+var abs_z: real = if z < 0.0 then -z else z ;
 -- Neutral.
 guarantee (z = y) = ((x = 1.0) or (y = 0.0)) ;
 guarantee (z = x) = ((y = 1.0) or (x = 0.0)) ;
@@ -196,9 +196,9 @@ tel
 
 node divid(num, den: real) returns (res: real) ;
 (*@contract
-var abs_num = if num < 0.0 then -num else num ;
-var abs_den = if den < 0.0 then -den else den ;
-var abs_res = if res < 0.0 then -res else res ;
+var abs_num: real = if num < 0.0 then -num else num ;
+var abs_den: real = if den < 0.0 then -den else den ;
+var abs_res: real = if res < 0.0 then -res else res ;
 assume not (den = 0.0) ;
 -- Neutral.
 guarantee (res = num) = ((den = 1.0) or (num = 0.0)) ;
@@ -231,9 +231,9 @@ node divid_bounded_num(
   num, den: real ; const l_bound, u_bound: real
 ) returns (res: real) ;
 (*@contract
-  var abs_num = if num < 0.0 then -num else num ;
-  var abs_den = if den < 0.0 then -den else den ;
-  var abs_res = if res < 0.0 then -res else res ;
+  var abs_num: real = if num < 0.0 then -num else num ;
+  var abs_den: real = if den < 0.0 then -den else den ;
+  var abs_res: real = if res < 0.0 then -res else res ;
   assume not (den = 0.0) ;
 (* Denominator respects its bounds. *)
   assume l_bound <> 0.0 ;
@@ -306,9 +306,9 @@ tel
 
 node temporal_divid(num, den: real) returns (res: real) ;
 (*@contract
-  var abs_num = if num < 0.0 then -num else num ;
-  var abs_den = if den < 0.0 then -den else den ;
-  var abs_res = if res < 0.0 then -res else res ;
+  var abs_num: real = if num < 0.0 then -num else num ;
+  var abs_den: real = if den < 0.0 then -den else den ;
+  var abs_res: real = if res < 0.0 then -res else res ;
   assume not (den = 0.0) ;
 -- Neutral.
   guarantee (res = num) = ((den = 1.0) or (num = 0.0)) ;

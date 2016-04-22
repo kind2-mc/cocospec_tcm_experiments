@@ -17,9 +17,9 @@ contract logic_heading(
   out_engaged: bool
 ) ;
 let
-  var head_deactivation = false -> pre in_disengage ;
+  var head_deactivation: bool = false -> pre in_disengage ;
   (* Head requested and no deactivation since then. *)
-  var head_req = has_been_true_reset(
+  var head_req: bool = has_been_true_reset(
     in_engage, head_deactivation and not in_engage
   ) ;
 
@@ -83,24 +83,24 @@ contract logic_alt_fpa(
   out_alt_engaged, out_fpa_engaged: bool
 ) ;
 let
-  var deactivation = false -> pre in_disengage ;
+  var deactivation: bool = false -> pre in_disengage ;
 
   (* Alt requested and no deactivation since then. *)
-  var alt_requested = has_been_true_reset(
+  var alt_requested: bool = has_been_true_reset(
     in_alt_engage, deactivation and not in_alt_engage
   ) ;
   (* FPA requested and no deactivation since then. *)
-  var fpa_requested = has_been_true_reset(
+  var fpa_requested: bool = has_been_true_reset(
     in_fpa_engage, deactivation and not in_fpa_engage
   ) ;
 
   (* Separates Guide 210 (`tiny_altitude_gap`) from Guide 170/180
   (`wide_altitude_gap`). In the former altitude has priority, while in the
   latter it's FPA. *)
-  var wide_altitude_gap = abs(
+  var wide_altitude_gap: bool = abs(
     altitude - altitude_target
   ) > altitude_gap_threshold ;
-  var tiny_altitude_gap = not wide_altitude_gap ;
+  var tiny_altitude_gap: bool = not wide_altitude_gap ;
 
   (* The following assumptions say that [alt_eng_in], [fpa_eng_in] and
   [deactivation] cannot change too fast. It can only change from [v] to [not v]
@@ -167,7 +167,7 @@ let
   mode init (
     require duration( not (in_alt_engage or in_fpa_engage) ) > 0 ;
     (* Neither alt or FPA is active. *)
-    ensure  not (out_alt_engaged or out_fpa_engaged) ;
+    ensure not (out_alt_engaged or out_fpa_engaged) ;
   ) ;
 
   (* Asked to engage in the past but disengaged now. *)
@@ -270,13 +270,13 @@ contract fpa (
   out_pitch: real
 ) ;
 let
-  var pre_in_fpa_target = in_fpa_target -> pre in_fpa_target ;
-  var pre_out_pitch = out_pitch -> pre out_pitch ;
+  var pre_in_fpa_target: real = in_fpa_target -> pre in_fpa_target ;
+  var pre_out_pitch: real = out_pitch -> pre out_pitch ;
 
   (* True if the fpa target hasn't changed. *)
-  var cmd_stable = true -> in_fpa_target = pre in_fpa_target ;
-  var pitch_diff_ubound = 4.83 * 57.2958 * 1.6878 * in_speed ;
-  var safe_pitch_diff = (
+  var cmd_stable: bool = true -> in_fpa_target = pre in_fpa_target ;
+  var pitch_diff_ubound: real = 4.83 * 57.2958 * 1.6878 * in_speed ;
+  var safe_pitch_diff: real = (
     if in_fpa_target - in_fpa > pitch_diff_ubound
     then pitch_diff_ubound
     else if in_fpa_target - in_fpa < - pitch_diff_ubound
@@ -287,7 +287,7 @@ let
   (* Rising means that the pitch command is above the current pitch, or above
   its previous value, or that FPA is expected to reach / go above the FPA
   target in the next step. *)
-  var rising =
+  var rising: bool =
     out_pitch > in_pitch or
     out_pitch >= pre_out_pitch or
     in_fpa_target <= in_fpa + (0.0 -> in_fpa - pre in_fpa) ;
@@ -295,7 +295,7 @@ let
   (* Lowering means that the pitch command is below the current pitch, or below
   its previous value, or that FPA is expected to reach / go below the FPA
   target in the next step. *)
-  var lowering =
+  var lowering: bool =
     out_pitch < in_pitch or
     out_pitch <= pre_out_pitch or
     in_fpa_target >= in_fpa + (0.0 -> in_fpa - pre in_fpa) ;
@@ -329,8 +329,8 @@ let
   previous one. *)
   assume true -> (
     pre in_engaged => (
-      abs(in_pitch - pre_out_pitch) < pre abs(in_pitch - out_pitch) or
-      (pre in_pitch) = pre_out_pitch
+      abs(in_pitch - pre out_pitch) < abs(pre in_pitch - pre out_pitch) or
+      (pre in_pitch) = pre out_pitch
     )
   ) ;
 
@@ -554,24 +554,24 @@ contract longitudinal (
 ) ;
 let
 
-  var pre_out_pitch = out_pitch -> pre out_pitch ;
+  var pre_out_pitch: real = out_pitch -> pre out_pitch ;
 
-  var fpa_target_stable = true -> in_fpa_target = pre in_fpa_target ;
+  var fpa_target_stable: bool = true -> in_fpa_target = pre in_fpa_target ;
 
-  var fpa_tgt_delta_lb = 0.0 -> (-3.2 + pre in_hdot) * 0.34 ;
-  var fpa_tgt_delta_ub = 0.0 -> ( 3.2 + pre in_hdot) * 0.34 ;
-  var fpa_tgt_lb = in_fpa_target + fpa_tgt_delta_lb ;
-  var fpa_tgt_ub = in_fpa_target + fpa_tgt_delta_ub ;
+  var fpa_tgt_delta_lb: real = 0.0 -> (-3.2 + pre in_hdot) * 0.34 ;
+  var fpa_tgt_delta_ub: real = 0.0 -> ( 3.2 + pre in_hdot) * 0.34 ;
+  var fpa_tgt_lb: real = in_fpa_target + fpa_tgt_delta_lb ;
+  var fpa_tgt_ub: real = in_fpa_target + fpa_tgt_delta_ub ;
   -- var fpa_tgt_delta = abs(0.0 -> ( 3.2 + pre in_hdot) * 0.34) ;
   -- var fpa_tgt_lb = in_fpa_target - fpa_tgt_delta ;
   -- var fpa_tgt_ub = in_fpa_target + fpa_tgt_delta ;
 
-  var rising = 
+  var rising: bool = 
     out_pitch > in_pitch or
     out_pitch >= pre_out_pitch or
     fpa_tgt_lb <= in_fpa + (0.0 -> in_fpa - pre in_fpa) ;
 
-  var lowering =
+  var lowering: bool =
     out_pitch < in_pitch or
     out_pitch <= pre_out_pitch or
     fpa_tgt_ub >= in_fpa + (0.0 -> in_fpa - pre in_fpa) ;
@@ -612,8 +612,8 @@ let
 
   assume true -> (
     pre in_fpa_engaged => (
-      abs(in_pitch - pre_out_pitch) < pre abs(in_pitch - out_pitch) or
-      (pre in_pitch) = pre_out_pitch
+      abs(in_pitch - pre out_pitch) < pre abs(in_pitch - out_pitch) or
+      (pre in_pitch) = pre out_pitch
     )
   ) ;
 
@@ -748,7 +748,7 @@ contract logic_longitudinal (
   out_alt, out_pitch, out_elev: real
 ) ;
 let
-  var deactivate = in_elev <> 0.0 or in_ail <> 0.0 ;
+  var deactivate: bool = in_elev <> 0.0 or in_ail <> 0.0 ;
 
   import logic (
     in_head_engage, in_alt_engage, in_fpa_engage, deactivate,
