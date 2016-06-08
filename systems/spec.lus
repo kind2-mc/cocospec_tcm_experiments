@@ -290,7 +290,7 @@ let
   var rising: bool =
     out_pitch > in_pitch or
     out_pitch >= pre_out_pitch or
-    in_fpa_target <= in_fpa + (0.0 -> in_fpa - pre in_fpa) ;
+    in_fpa_target <= in_fpa + ( 0.0 -> (in_fpa - pre in_fpa) ) ;
 
   (* Lowering means that the pitch command is below the current pitch, or below
   its previous value, or that FPA is expected to reach / go below the FPA
@@ -298,7 +298,7 @@ let
   var lowering: bool =
     out_pitch < in_pitch or
     out_pitch <= pre_out_pitch or
-    in_fpa_target >= in_fpa + (0.0 -> in_fpa - pre in_fpa) ;
+    in_fpa_target >= in_fpa + ( 0.0 -> (in_fpa - pre in_fpa) ) ;
 
   (* Speed is positive. *)
   assume in_speed >= 0.0 ;
@@ -329,8 +329,9 @@ let
   previous one. *)
   assume true -> (
     pre in_engaged => (
-      abs(in_pitch - pre out_pitch) < abs(pre in_pitch - pre out_pitch) or
-      (pre in_pitch) = pre out_pitch
+      abs( 0.0 -> (in_pitch - pre out_pitch) ) <=
+      abs( 0.0 -> (pre in_pitch - pre out_pitch) )
+      -- or (pre in_pitch) = pre out_pitch
     )
   ) ;
 
@@ -455,7 +456,7 @@ let
 
   (* |===| Guide 120, stable version. *)
   mode fpa_g120_130_stable (
-    -- require not ::inhibited ;
+    require not ::fpa_fpa_engaging ;
     require count_succ_true(in_engaged) >= 2 ;
     require count_succ_true(in_fpa_target = in_fpa) >= 2 ;
     require cmd_stable ;
@@ -612,8 +613,9 @@ let
 
   assume true -> (
     pre in_fpa_engaged => (
-      abs(in_pitch - pre out_pitch) < pre abs(in_pitch - out_pitch) or
-      (pre in_pitch) = pre out_pitch
+      abs( 0.0 -> (in_pitch - pre out_pitch) ) <=
+      abs( 0.0 -> pre (in_pitch - out_pitch) )
+      -- or (pre in_pitch) = pre out_pitch
     )
   ) ;
 
