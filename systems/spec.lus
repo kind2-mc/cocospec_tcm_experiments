@@ -591,14 +591,14 @@ let
   assume true -> in_alt = in_hdot + pre in_alt ;
 
   (* Cannot be engaged if speed is less than 100. *)
-  assume (in_fpa_engaged or in_alt_engaged) => in_speed = 100.0 ;
-  assume (in_fpa_engaged or in_alt_engaged) => in_gskts = 100.0 ;
-  assume (in_fpa_engaged or in_alt_engaged) => in_cas   = 100.0 ;
+  assume (in_fpa_engaged or in_alt_engaged) => in_speed >= 100.0 ;
+  assume (in_fpa_engaged or in_alt_engaged) => in_gskts >= 100.0 ;
+  assume (in_fpa_engaged or in_alt_engaged) => in_cas   >= 100.0 ;
   assume (in_fpa_engaged or in_alt_engaged) => in_alt_target >= 0.0 ;
   assume (in_fpa_engaged or in_alt_engaged) => in_fpa_target = 0.0 ;
 
-  assume in_fpa_engaged ;
-  assume in_alt > 100.0 ;
+  -- assume in_fpa_engaged ;
+  -- assume in_alt > 100.0 ;
 
   (* FPA and altitude cannot be engaged at the same time. *)
   assume not (in_fpa_engaged and in_alt_engaged) ;
