@@ -460,12 +460,12 @@ let
     require count_succ_true(in_engaged) >= 2 ;
     require count_succ_true(in_fpa_target = in_fpa) >= 2 ;
     require cmd_stable ;
-    ensure (
-      out_pitch = in_pitch
+    -- ensure (
+      -- out_pitch = in_pitch
       -- ( (next_fpa < in_fpa_target) and (pitch > in_fpa_target) ) or
       -- ( (next_fpa > in_fpa_target) and (pitch < in_fpa_target) ) or
       -- duration(true) < 3
-    ) ;
+    -- ) ;
   ) ;
 
 
