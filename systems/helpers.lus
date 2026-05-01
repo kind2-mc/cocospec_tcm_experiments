@@ -8,52 +8,52 @@ let
   out = if fst <= snd then fst else snd ;
 tel
 
-node duration(in: bool) returns (out: int) ;
+node duration(inp: bool) returns (out: int) ;
 var always_true: bool ;
 let
-  always_true = in -> in and (pre always_true) ;
+  always_true = inp -> inp and (pre always_true) ;
   out = if always_true then (1 -> pre out + 1) else 0 ;
 tel
 
-node fall(in: bool) returns (out: bool) ;
+node fall(inp: bool) returns (out: bool) ;
 let
-  out = false -> (not in) and pre in ;
+  out = false -> (not inp) and pre inp ;
 tel
 
-node rise(in: bool) returns (out: bool) ;
+node rise(inp: bool) returns (out: bool) ;
 let
-  out = false -> in and pre not in ;
+  out = false -> inp and pre not inp ;
 tel
 
-node count(in: bool) returns (out: int) ;
+node count(inp: bool) returns (out: int) ;
 let
-  out = if in then (1 -> pre out + 1) else 0 ;
+  out = if inp then (1 -> pre out + 1) else 0 ;
 tel
 
-node count_succ_true(in: bool) returns (out: int) ;
+node count_succ_true(inp: bool) returns (out: int) ;
 let
-  out = if in then (1 -> pre out + 1) else 0 ;
+  out = if inp then (1 -> pre out + 1) else 0 ;
 tel
 
-node count_true_since(in, reset: bool) returns (out: int) ;
+node count_true_since(inp, reset: bool) returns (out: int) ;
 let
-  out = if reset then 0 else if in then 0 -> pre out + 1 else 0 -> pre out ;
+  out = if reset then 0 else if inp then 0 -> pre out + 1 else 0 -> pre out ;
 tel
 
-node has_been_true(in: bool) returns (out: bool) ;
+node has_been_true(inp: bool) returns (out: bool) ;
 let
-  out = in -> in or pre out ;
+  out = inp -> inp or pre out ;
 tel
 
-node has_been_true_reset(in, reset: bool) returns (out: bool) ;
+node has_been_true_reset(inp, reset: bool) returns (out: bool) ;
 let
-  out = (in -> (in or pre out)) and not reset ;
+  out = (inp -> (inp or pre out)) and not reset ;
 tel
 
-node spike_or_confirmed(in: bool ; const count: int ; reset: bool)
+node spike_or_confirmed(inp: bool ; const count: int ; reset: bool)
 returns (out: bool) ;
 let
-  out = (in and not reset) or has_been_true_reset(since(in) = count, reset) ;
+  out = (inp and not reset) or has_been_true_reset(since(inp) = count, reset) ;
 tel
 
 node before_lt(max: int) returns (out: bool) ;
@@ -66,29 +66,29 @@ let
   out = duration(true) >= min ;
 tel
 
-node since(in: bool) returns (out: int) ;
+node since(inp: bool) returns (out: int) ;
 let
-  out = (if in then 1 else 0) -> ( if in then pre out + 1 else 0 ) ;
+  out = (if inp then 1 else 0) -> ( if inp then pre out + 1 else 0 ) ;
 tel
 
-node since_le_not_0(in: bool; const max: int) returns (out: bool) ;
+node since_le_not_0(inp: bool; const max: int) returns (out: bool) ;
 var sinc3: int ;
 let
-  sinc3 = since(in) ;
+  sinc3 = since(inp) ;
   out = (0 < sinc3) and (sinc3 <= max) ;
 tel
 
-node since_gt_or_0(in: bool; const min: int) returns (out: bool) ;
+node since_gt_or_0(inp: bool; const min: int) returns (out: bool) ;
 var sinc3: int ;
 let
-  sinc3 = since(in) ;
+  sinc3 = since(inp) ;
   out = (0 = sinc3) or (sinc3 > min) ;
 tel
 
-node lasted(in: bool) returns (out: int) ;
+node lasted(inp: bool) returns (out: int) ;
 let
-  out = (if in then 1 else 0) -> (
-    if in then pre out + 1 else 0
+  out = (if inp then 1 else 0) -> (
+    if inp then pre out + 1 else 0
   ) ;
 tel
 
@@ -102,21 +102,21 @@ let
   out = i1 and (not i2) and i3 and i4 ;
 tel
 
-node abs(in: real) returns (out: real) ;
+node abs(inp: real) returns (out: real) ;
 let
-  out = if in < 0.0 then -in else in ;
+  out = if inp < 0.0 then -inp else inp ;
 tel
 
-node clamp(l_bound, in, u_bound: real) returns (out: real) ;
+node clamp(l_bound, inp, u_bound: real) returns (out: real) ;
 let
   out =
-    if in < l_bound then l_bound else if in > u_bound then u_bound else in ;
+    if inp < l_bound then l_bound else if inp > u_bound then u_bound else inp ;
 tel
 
 
 
 -- node integrator_reset(
---   in, in0 : real ; reset : bool
+--   inp, in0 : real ; reset : bool
 -- ) returns (
 --   out : real
 -- ) ;
@@ -126,7 +126,7 @@ tel
 -- let
 --   resetting = reset or (false -> pre reset) ;
 --   pre_reset = if resetting then in0 else (in0 -> pre v) ;
---   v = in + pre_reset ;
+--   v = inp + pre_reset ;
 --   out = 0.0 -> pre v ;
 -- tel
 
@@ -155,13 +155,13 @@ let
 --  ) ;
 tel
 
-node sign(in: real) returns (out: bool) ;
+node sign(inp: real) returns (out: bool) ;
 let
-  out = in >= 0.0 ;
+  out = inp >= 0.0 ;
 tel
 
-node PseudoContinuous (in, inc: real) returns (out: bool) ;
-let out = abs(in - (in -> pre in)) <= inc ; tel
+node PseudoContinuous (inp, inc: real) returns (out: bool) ;
+let out = abs(inp - (inp -> pre inp)) <= inc ; tel
 
 -- |===| Abstractions of non-linear streams.
 

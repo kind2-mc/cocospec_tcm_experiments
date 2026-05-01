@@ -1,5 +1,5 @@
 (* Threshold on the altitude gap for Guide 210 and 170/180. *)
-const altitude_gap_threshold = 200.0 ;
+const altitude_gap_threshold: real = 200.0 ;
 
 
 
@@ -537,7 +537,7 @@ tel
 
 
 (* Maximum CAS value for which controllers are active. *)
-const max_cas = 500.0 ;
+const max_cas: real = 500.0 ;
 
 
 (* Contract for `LONGITUDINAL_CONTROLLER`. *)
